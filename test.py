@@ -16,8 +16,8 @@ model.eval()
 if has_cuda:
     model.convert_to_fp16()
 
-
 model.to(device)
+model.load_state_dict(torch.load('./ckpt/base.pt', map_location=device))
 print('total base parameters', sum(x.numel() for x in model.parameters())) 
 
 
@@ -30,7 +30,6 @@ model_up.eval()
 if has_cuda:
     model_up.convert_to_fp16()
 model_up.to(device)
-# model_up.load_state_dict(load_checkpoint('upsample', device))
 print('total upsampler parameters', sum(x.numel() for x in model_up.parameters())) 
 
 
